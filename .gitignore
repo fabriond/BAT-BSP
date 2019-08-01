@@ -1,0 +1,4 @@
+*.plt
+/.vscode/
+*.exe
+*.txt
