@@ -67,11 +67,13 @@ void Bat::acceptNewSolutions(double currentIteration){
 }
 
 std::ostream& operator<<(std::ostream& os, const Bat& bat){
+    os.precision(4);
     std::string sep = "";
     for(int j = 0; j < bat.position.size(); ++j){
-        os << sep << bat.position[j];
+        os << std::fixed << sep << bat.position[j];
         sep = ", ";
     }
-    os << "; Fitness: " << bat.fitness;
+    os.precision(7);
+    os << std::fixed << "; Fitness: " << bat.fitness;
     return os;
 }

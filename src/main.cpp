@@ -16,6 +16,8 @@ using namespace std;
 
 Matrix regionMap(T_MAX, T_MAX);
 
+int defaultFilled;
+
 void initMap(){
     regionMap.placeHexagon(23, 13, HEXAGON_RADIUS);
 
@@ -58,7 +60,7 @@ double fitness(vector<double> pos){
             result += m.getValue(i, j);
         }
     }
-    return result;
+    return (double) result/defaultFilled;
 }
 
 void genGraph(vector<double> pos, int number){
@@ -86,6 +88,13 @@ int main(int argc, char **argv){
     file << regionMap;
     file.close();
 
+    defaultFilled = 0;
+    for(int i = 0; i < regionMap.getNumRows(); ++i){
+        for(int j = 0; j < regionMap.getNumRows(); ++j){
+            defaultFilled += regionMap.getValue(i, j);
+        }
+    }
+
     int dimensions = STATION_COUNT*2;
 
     vector<double> lb(dimensions, 0);
@@ -93,16 +102,21 @@ int main(int argc, char **argv){
 
     BatSwarm swarm(dimensions, 20, lb, ub, fitness);
     Bat best = swarm.getBest();
-    cout << "Iterations: " << swarm.getIterationCount() << "; " << swarm.getBest() << "\r";
+    cout << "Iterations: " << swarm.getIterationCount() << "; " << swarm.getBest() << endl;
     genGraph(swarm.getBest().getPosition(), swarm.getIterationCount());
 
-    while(100 < best.getFitness() && swarm.getIterationCount() < 200){
+    while(0.01 < best.getFitness() && swarm.getIterationCount() < 200){
         swarm.update();
         if(swarm.getBest() <= best){
+            cout << "Iterations: " << swarm.getIterationCount() << "; " << swarm.getBest();
+            
             if(swarm.getBest() < best){
                 genGraph(swarm.getBest().getPosition(), swarm.getIterationCount());
+                cout << endl;
+            } else{
+                cout << "\r";
             }
-            cout << "Iterations: " << swarm.getIterationCount() << "; " << swarm.getBest() << "\r";
+            
             best = swarm.getBest();
         }
     }
