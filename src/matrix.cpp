@@ -217,19 +217,10 @@ void Matrix::placeCircle(int xCenter, int yCenter, int radius){
     int yCurrent = -1;
 
     for(int i = 0; i <= radius; ++i){
-        for(double theta = 0.0; theta < 2.0*PI - PI/200.0; theta += PI/200.0){
+        for(double theta = 0.0; theta < 2.0*PI - PI/1000.0; theta += PI/1000.0){
             try{
                 setValue(xCenter + i*sin(theta), yCenter + i*cos(theta), 0);
             } catch(const std::exception& e){}
-            /*xCurrent = xCenter + i*sin(theta);
-            yCurrent = yCenter + i*cos(theta);    
-            
-            if(xPrev != -1 && yPrev != -1){
-                drawBresenhamLine(xPrev, yPrev, xCurrent, yCurrent, 0);
-            }
-
-            xPrev = xCurrent;
-            yPrev = yCurrent;*/
         }
     }
 }

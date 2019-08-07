@@ -9,17 +9,46 @@
 
 using namespace std;
 
-#define T_MAX 62
+#define T_MAX 625
 #define STATION_COUNT 6
-#define HEXAGON_RADIUS 6
-#define STATION_RADIUS 12
+#define HEXAGON_RADIUS 63
+#define STATION_RADIUS 126
 
 Matrix regionMap(T_MAX, T_MAX);
 
 int defaultFilled;
 
 void initMap(){
-    regionMap.placeHexagon(23, 13, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(231, 127, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(340, 127, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(448, 127, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(178, 220, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(286, 220, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(394, 220, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(124, 312, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(231, 312, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(178, 406, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(286, 406, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(394, 406, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(231, 499, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(340, 499, HEXAGON_RADIUS);
+
+    regionMap.placeHexagon(448, 499, HEXAGON_RADIUS);
+
+    /*regionMap.placeHexagon(23, 13, HEXAGON_RADIUS);
 
     regionMap.placeHexagon(34, 13, HEXAGON_RADIUS);
 
@@ -45,13 +74,12 @@ void initMap(){
 
     regionMap.placeHexagon(34, 50, HEXAGON_RADIUS);
 
-    regionMap.placeHexagon(45, 50, HEXAGON_RADIUS);
+    regionMap.placeHexagon(45, 50, HEXAGON_RADIUS);*/
 }
 
 double fitness(vector<double> pos){
     Matrix m = regionMap;
     for(int i = 0; i < pos.size()-1; i+=2){
-        //cout << pos.at(i) << ", " << pos.at(i+1) << endl;
         m.placeCircle(pos.at(i), pos.at(i+1), STATION_RADIUS);
     }
     int result = 0;
@@ -66,7 +94,6 @@ double fitness(vector<double> pos){
 void genGraph(vector<double> pos, int number){
     Matrix m = regionMap;
     for(int i = 0; i < pos.size()-1; i+=2){
-        //cout << pos.at(i) << ", " << pos.at(i+1) << endl;
         m.placeCircle(pos.at(i), pos.at(i+1), STATION_RADIUS);
     }
 
